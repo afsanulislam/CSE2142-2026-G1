@@ -35,7 +35,7 @@ public class EmployeeManager {
     public static void main(String[] args) {
         // Add a check at the beginning to ensure the correct number of arguments
         if (args.length == 0) {
-            System.out.println("Error: No arguments provided. Please provide a valid argument (e.g., l, s, +Name, ?Name).");
+            System.out.println("Error: No arguments provided. Please provide a valid argument (e.g., l, s, +Name, ?Name, c, uName, dName).");
             return;
         }
 
@@ -114,7 +114,9 @@ public class EmployeeManager {
             } catch (Exception e) {
             }
             System.out.println("Data Deleted.");
+        } else {
+            // Task 9 Update
+            System.out.println("Error: Invalid argument '" + args[0] + "'. Please provide a valid argument.");
         }
     }
 }
-
