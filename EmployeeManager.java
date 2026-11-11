@@ -5,9 +5,10 @@ public class EmployeeManager {
 
     // Method to read data from the file
     public static String readEmployees() throws IOException {
+        // Task #5 Update
         BufferedReader reader = new BufferedReader(
                 new InputStreamReader(
-                        new FileInputStream("employees.txt")));
+                        new FileInputStream(Constants.EMPLOYEE_FILE_PATH)));
         String line = reader.readLine();
         reader.close();
         return line;
@@ -15,16 +16,18 @@ public class EmployeeManager {
 
     // Method to write data to the file (overwrite)
     public static void writeEmployees(String data) throws IOException {
+        // Task #5 Update
         BufferedWriter writer = new BufferedWriter(
-                new FileWriter("employees.txt"));
+                new FileWriter(Constants.EMPLOYEE_FILE_PATH));
         writer.write(data);
         writer.close();
     }
 
     // Method to append data to the file
     public static void appendEmployee(String data) throws IOException {
+        // Task #5 Update
         BufferedWriter writer = new BufferedWriter(
-                new FileWriter("employees.txt", true));
+                new FileWriter(Constants.EMPLOYEE_FILE_PATH, true));
         writer.write(data);
         writer.close();
     }
@@ -135,4 +138,3 @@ public class EmployeeManager {
         }
     }
 }
-
