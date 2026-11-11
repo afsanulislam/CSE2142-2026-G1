@@ -5,7 +5,7 @@ public class EmployeeManager {
 
     // Method to read data from the file
     public static String readEmployees() throws IOException {
-        // Task #5 Update
+        // Task 5 Update
         BufferedReader reader = new BufferedReader(
                 new InputStreamReader(
                         new FileInputStream(Constants.EMPLOYEE_FILE_PATH)));
@@ -16,7 +16,7 @@ public class EmployeeManager {
 
     // Method to write data to the file (overwrite)
     public static void writeEmployees(String data) throws IOException {
-        // Task #5 Update
+        // Task 5 Update
         BufferedWriter writer = new BufferedWriter(
                 new FileWriter(Constants.EMPLOYEE_FILE_PATH));
         writer.write(data);
@@ -25,7 +25,7 @@ public class EmployeeManager {
 
     // Method to append data to the file
     public static void appendEmployee(String data) throws IOException {
-        // Task #5 Update
+        // Task 5 Update
         BufferedWriter writer = new BufferedWriter(
                 new FileWriter(Constants.EMPLOYEE_FILE_PATH, true));
         writer.write(data);
@@ -43,8 +43,7 @@ public class EmployeeManager {
         if (args[0].equals("l")) {
             System.out.println("Loading data ...");
             try {
-                // Task #6 Update: Removed temporary variables 'line' and 'employees'. 
-                // Chaining readEmployees() directly with split().
+                // Task 6 Update
                 for (String emp : readEmployees().split(",")) {
                     System.out.println(emp);
                 }
@@ -57,8 +56,7 @@ public class EmployeeManager {
                 String line = readEmployees();
                 System.out.println(line);
                 String[] employees = line.split(",");
-                // Task #6 Update: Removed temporary variables 'rand' and 'idx'. 
-                // Creating Random instance and getting index in a single line.
+                // Task 6 Update
                 System.out.println(employees[new Random().nextInt(employees.length)]);
             } catch (Exception e) {
             }
@@ -66,8 +64,7 @@ public class EmployeeManager {
         } else if (args[0].contains("+")) {
             System.out.println("Loading data ...");
             try {
-                // Task #6 Update: Removed temporary variable 'newEmployee'. 
-                // Passing the substring directly to the method.
+                // Task 6 Update
                 appendEmployee(", " + args[0].substring(1));
             } catch (Exception e) {
             }
@@ -75,13 +72,11 @@ public class EmployeeManager {
         } else if (args[0].contains("?")) {
             System.out.println("Loading data ...");
             try {
-                // Task #6 Update: Removed temporary variables 'line', 'employees', 'found', and 'targetName'.
-                // Iterating directly over the split array and using 'break' instead of a boolean flag.
-                for (String emp : readEmployees().split(",")) {
-                    if (emp.equals(args[0].substring(1))) {
-                        System.out.println("Employee found!");
-                        break;
-                    }
+                // Task 7 Update
+                if (Arrays.asList(readEmployees().split(",")).contains(args[0].substring(1))) {
+                    System.out.println("Employee '" + args[0].substring(1) + "' found!");
+                } else {
+                    System.out.println("Employee '" + args[0].substring(1) + "' not found!");
                 }
             } catch (Exception e) {
             }
@@ -89,8 +84,7 @@ public class EmployeeManager {
         } else if (args[0].contains("c")) {
             System.out.println("Loading data ...");
             try {
-                // Task #6 Update: Removed temporary variable 'line'.
-                // Directly converting the result of readEmployees() to a char array.
+                // Task 6 Update
                 char[] chars = readEmployees().toCharArray();
                 boolean inWord = false;
                 int count = 0;
@@ -111,8 +105,7 @@ public class EmployeeManager {
         } else if (args[0].contains("u")) {
             System.out.println("Loading data ...");
             try {
-                // Task #6 Update: Removed temporary variables 'line' and 'targetToUpdate'.
-                // Checking the condition directly against args[0].substring(1).
+                // Task 6 Update
                 String[] employees = readEmployees().split(",");
                 for (int i = 0; i < employees.length; i++) {
                     if (employees[i].equals(args[0].substring(1))) {
@@ -126,8 +119,7 @@ public class EmployeeManager {
         } else if (args[0].contains("d")) {
             System.out.println("Loading data ...");
             try {
-                // Task #6 Update: Removed temporary variables 'line', 'employees', and 'targetToDelete'.
-                // Creating the list directly and removing the item directly.
+                // Task 6 Update
                 List<String> employeeList = new ArrayList<>(Arrays.asList(readEmployees().split(",")));
                 employeeList.remove(args[0].substring(1));
                 writeEmployees(String.join(",", employeeList));
