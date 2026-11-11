@@ -3,8 +3,8 @@ import java.util.*;
 
 public class EmployeeManager {
 
-    // Method to read data from the file
-    public static String readEmployees() throws IOException {
+    // Task 10 Update: rename method for getting all emp data 
+    public static String getAllEmployees() throws IOException {
         // Task 5 Update
         BufferedReader reader = new BufferedReader(
                 new InputStreamReader(
@@ -14,8 +14,8 @@ public class EmployeeManager {
         return line;
     }
 
-    // Method to write data to the file (overwrite)
-    public static void writeEmployees(String data) throws IOException {
+    // Task 10 Update: method to save all data into file
+    public static void saveAllEmployees(String data) throws IOException {
         // Task 5 Update
         BufferedWriter writer = new BufferedWriter(
                 new FileWriter(Constants.EMPLOYEE_FILE_PATH));
@@ -23,8 +23,8 @@ public class EmployeeManager {
         writer.close();
     }
 
-    // Method to append data to the file
-    public static void appendEmployee(String data) throws IOException {
+    // Task 10 Update: method for adding new emplyee
+    public static void addNewEmployee(String data) throws IOException {
         // Task 5 Update
         BufferedWriter writer = new BufferedWriter(
                 new FileWriter(Constants.EMPLOYEE_FILE_PATH, true));
@@ -33,27 +33,32 @@ public class EmployeeManager {
     }
 
     public static void main(String[] args) {
-        // Add a check at the beginning to ensure the correct number of arguments
+        // Task 10 Update: cheking if user not give any argument
         if (args.length == 0) {
             System.out.println("Error: No arguments provided. Please provide a valid argument (e.g., l, s, +Name, ?Name, c, uName, dName).");
             return;
         }
 
+        // Task 10 Update: taking the fast argument in a variable
+        String userCmd = args[0];
+
         // Check arguments
-        if (args[0].equals("l")) {
+        if (userCmd.equals("l")) {
+            // Task 10 Update: this is loading oparetion for show all emp
             System.out.println("Loading data ...");
             try {
                 // Task 6 Update
-                for (String emp : readEmployees().split(",")) {
+                for (String emp : getAllEmployees().split(",")) {
                     System.out.println(emp);
                 }
             } catch (Exception e) {
             }
             System.out.println("Data Loaded.");
-        } else if (args[0].equals("s")) {
+        } else if (userCmd.equals("s")) {
+            // Task 10 Update: searching a random emplyee from file
             System.out.println("Loading data ...");
             try {
-                String line = readEmployees();
+                String line = getAllEmployees();
                 System.out.println(line);
                 String[] employees = line.split(",");
                 // Task 6 Update
@@ -61,62 +66,67 @@ public class EmployeeManager {
             } catch (Exception e) {
             }
             System.out.println("Data Loaded.");
-        } else if (args[0].contains("+")) {
+        } else if (userCmd.contains("+")) {
+            // Task 10 Update: add new emplye to the file
             System.out.println("Loading data ...");
             try {
                 // Task 6 Update
-                appendEmployee(", " + args[0].substring(1));
+                addNewEmployee(", " + userCmd.substring(1));
             } catch (Exception e) {
             }
             System.out.println("Data Loaded.");
-        } else if (args[0].contains("?")) {
+        } else if (userCmd.contains("?")) {
+            // Task 10 Update: find if a employe is exist or not
             System.out.println("Loading data ...");
             try {
                 // Task 7 Update
-                if (Arrays.asList(readEmployees().split(",")).contains(args[0].substring(1))) {
-                    System.out.println("Employee '" + args[0].substring(1) + "' found!");
+                if (Arrays.asList(getAllEmployees().split(",")).contains(userCmd.substring(1))) {
+                    System.out.println("Employee '" + userCmd.substring(1) + "' found!");
                 } else {
-                    System.out.println("Employee '" + args[0].substring(1) + "' not found!");
+                    System.out.println("Employee '" + userCmd.substring(1) + "' not found!");
                 }
             } catch (Exception e) {
             }
             System.out.println("Data Loaded.");
-        } else if (args[0].contains("c")) {
+        } else if (userCmd.contains("c")) {
+            // Task 10 Update: count how many words is in there
             System.out.println("Loading data ...");
             try {
                 // Task 8 Update
-                String text = readEmployees();
+                String text = getAllEmployees();
                 System.out.println(text.split(",").length + " word(s) found " + text.length());
             } catch (Exception e) {
             }
             System.out.println("Data Loaded.");
-        } else if (args[0].contains("u")) {
+        } else if (userCmd.contains("u")) {
+            // Task 10 Update: update a emplyee name to Updated
             System.out.println("Loading data ...");
             try {
                 // Task 6 Update
-                String[] employees = readEmployees().split(",");
+                String[] employees = getAllEmployees().split(",");
                 for (int i = 0; i < employees.length; i++) {
-                    if (employees[i].equals(args[0].substring(1))) {
+                    if (employees[i].equals(userCmd.substring(1))) {
                         employees[i] = "Updated";
                     }
                 }
-                writeEmployees(String.join(",", employees));
+                saveAllEmployees(String.join(",", employees));
             } catch (Exception e) {
             }
             System.out.println("Data Updated.");
-        } else if (args[0].contains("d")) {
+        } else if (userCmd.contains("d")) {
+            // Task 10 Update: delet a employee form the list
             System.out.println("Loading data ...");
             try {
                 // Task 6 Update
-                List<String> employeeList = new ArrayList<>(Arrays.asList(readEmployees().split(",")));
-                employeeList.remove(args[0].substring(1));
-                writeEmployees(String.join(",", employeeList));
+                List<String> employeeList = new ArrayList<>(Arrays.asList(getAllEmployees().split(",")));
+                employeeList.remove(userCmd.substring(1));
+                saveAllEmployees(String.join(",", employeeList));
             } catch (Exception e) {
             }
             System.out.println("Data Deleted.");
         } else {
             // Task 9 Update
-            System.out.println("Error: Invalid argument '" + args[0] + "'. Please provide a valid argument.");
+            System.out.println("Error: Invalid argument '" + userCmd + "'. Please provide a valid argument.");
         }
     }
 }
