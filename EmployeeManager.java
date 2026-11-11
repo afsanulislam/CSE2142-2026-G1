@@ -1,10 +1,14 @@
-
-//File Name EmployeeManager.java
 import java.io.*;
 import java.util.*;
 
 public class EmployeeManager {
     public static void main(String[] args) {
+        // Add a check at the beginning to ensure the correct number of arguments
+        if (args.length == 0) {
+            System.out.println("Error: No arguments provided.");
+            return;
+        }
+
         // Check arguments
         if (args[0].equals("l")) {
             System.out.println("Loading data ...");
@@ -131,3 +135,4 @@ public class EmployeeManager {
         }
     }
 }
+
