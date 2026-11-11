@@ -84,21 +84,9 @@ public class EmployeeManager {
         } else if (args[0].contains("c")) {
             System.out.println("Loading data ...");
             try {
-                // Task 6 Update
-                char[] chars = readEmployees().toCharArray();
-                boolean inWord = false;
-                int count = 0;
-                for (char character : chars) {
-                    if (character == ' ') {
-                        if (!inWord) {
-                            count++;
-                            inWord = true;
-                        } else {
-                            inWord = false;
-                        }
-                    }
-                }
-                System.out.println(count + " word(s) found " + chars.length);
+                // Task 8 Update
+                String text = readEmployees();
+                System.out.println(text.split(",").length + " word(s) found " + text.length());
             } catch (Exception e) {
             }
             System.out.println("Data Loaded.");
